@@ -24,7 +24,12 @@ function compile {
         for file in "$folder"/*.c
         do
             echo -e "Compiling $(print "$file" blue)"
-            gcc -c "$file" -o "out/parts/$(basename "$file").o" -Wall -Wextra -Werror -pedantic -std=c99 -O3
+            gcc -c "$file" \
+                -o "out/parts/$(basename "$file").o" \
+                -Wall \
+                -pedantic \
+                -std=c99 \
+                -O3
         done
     done
     print "-----------------------" blue
@@ -32,7 +37,12 @@ function compile {
 
 function link {
     print "Linking object files" green
-    gcc out/parts/*.o -o out/main.o -Wall -Wextra -Werror -pedantic -std=c99 -O3
+    gcc out/parts/*.o \
+        -o out/main.o \
+        -Wall \
+        -pedantic \
+        -std=c99 \
+        -O3
     print "-----------------------" green
 }
 
