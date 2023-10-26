@@ -47,6 +47,7 @@ function clean {
     print "Cleaning up" green
     rm out/parts/*.o
     rm out/main.o
+    print "-----------------------\n" green
 }
 
 function main {
