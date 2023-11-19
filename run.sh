@@ -76,6 +76,7 @@ function compile {
 function link {
     log $(print "Linking object files" green)
     gcc out/parts/*.o \
+        -lm \
         -o out/main.exe \
         -Wall \
         -pedantic \
