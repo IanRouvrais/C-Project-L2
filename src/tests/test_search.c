@@ -9,7 +9,7 @@ static void test_searchLevel0Ascendant() {
     insertCellAtHead(&list, 10, 0);
     insertCellAtHead(&list, 20, 1);
     insertCellAtHead(&list, 30, 2);
-    t_d_cell* result = searchLevel0Ascendant(&list, 20);
+    t_d_cell* result = searchLevel0Ascendant(list, 20);
     if (result != NULL) {
         printf("Found value 20 at level 0\n");
     } else {
@@ -22,7 +22,7 @@ static void test_searchLevel0Descendant() {
     insertCellAtHead(&list, 10, 0);
     insertCellAtHead(&list, 20, 1);
     insertCellAtHead(&list, 30, 2);
-    t_d_cell* result = searchLevel0Descendant(&list, 20);
+    t_d_cell* result = searchLevel0Descendant(list, 20);
     if (result != NULL) {
         printf("Found value 20 at level 0\n");
     } else {
@@ -35,7 +35,7 @@ static void test_searchAscendant() {
     insertCellAtHead(&list, 10, 0);
     insertCellAtHead(&list, 20, 1);
     insertCellAtHead(&list, 30, 2);
-    t_d_cell* result = searchAscendant(&list, 20);
+    t_d_cell* result = searchAscendant(list, 20);
     if (result != NULL) {
         printf("Found value 20 in the list\n");
     } else {
@@ -48,7 +48,7 @@ static void test_searchDescendant() {
     insertCellAtHead(&list, 10, 0);
     insertCellAtHead(&list, 20, 1);
     insertCellAtHead(&list, 30, 2);
-    t_d_cell* result = searchDescendant(&list, 20);
+    t_d_cell* result = searchDescendant(list, 20);
     if (result != NULL) {
         printf("Found value 20 in the list\n");
     } else {

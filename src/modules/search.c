@@ -5,58 +5,80 @@
 #include "../../includes/list.h"
 #include <string.h>
 
-t_d_cell* searchLevel0Ascendant(t_d_list* list, int value) {
-    t_d_cell* current = list->heads[0];
+t_d_cell* searchLevel0Ascendant(t_d_list list, int value) {
+    t_d_cell* current = list.heads[0];
     
-    while(current != NULL || current->value <= value) {
+    while(current != NULL && current->value <= value) {
         if(current->value == value) {
             return current;
         }
         current = current->next[0];
-    }
-    return current;
-}
-
-t_d_cell* searchLevel0Descendant(t_d_list* list, int value) {
-    t_d_cell* current = list->heads[0];
-    
-    while(current != NULL || current->value >= value) {
-        if(current->value == value) {
-            return current;
-        }
-        current = current->next[0];
-    }
-    return current;
-}
-
-t_d_cell* searchAscendant(t_d_list* list, int value) {
-    t_d_cell* current = list->heads[list->nbLevels-1];
-    int level = list->nbLevels-1;
-    
-    while(level >= 0) {
-        while(current->next[level] != NULL && current->next[level]->value <= value) {
-            current = current->next[level];
-        }
-        if(current->value == value) {
-            return current;
-        }
-        level--;
     }
     return NULL;
 }
 
-t_d_cell* searchDescendant(t_d_list* list, int value) {
-    t_d_cell* current = list->heads[list->nbLevels-1];
-    int level = list->nbLevels-1;
+t_d_cell* searchLevel0Descendant(t_d_list list, int value) {
+    t_d_cell* current = list.heads[0];
     
-    while(level >= 0) {
-        while(current->next[level] != NULL && current->next[level]->value >= value) {
-            current = current->next[level];
-        }
+    while(current != NULL && current->value >= value) {
         if(current->value == value) {
             return current;
         }
-        level--;
+        current = current->next[0];
     }
+    return NULL;
+}
+
+t_d_cell *searchAscendant(t_d_list list, int value)
+{
+    if (list.heads == NULL) return NULL;
+
+    int currentLevel = list.nbLevels; 
+    t_d_cell *current;
+    do {
+        currentLevel--;
+        current = list.heads[currentLevel];
+    } while (current == NULL && currentLevel >=0);
+        if (current == NULL) return NULL;
+    
+    do
+    {
+        if (current->value == value)
+            return current;
+
+        if (currentLevel > 0 && current->value > value)
+            current = list.heads[--currentLevel];
+        else
+            current = current->next[0];
+
+    } while (current != NULL);
+
+    return NULL;
+}
+
+t_d_cell *searchDescendant(t_d_list list, int value)
+{
+    if (list.heads == NULL) return NULL;
+
+    int currentLevel = list.nbLevels; 
+    t_d_cell *current;
+    do {
+        currentLevel--;
+        current = list.heads[currentLevel];
+    } while (current == NULL && currentLevel >=0);
+        if (current == NULL) return NULL;
+    
+    do
+    {
+        if (current->value == value)
+            return current;
+
+        if (currentLevel > 0 && current->value < value)
+            current = list.heads[--currentLevel];
+        else
+            current = current->next[0];
+
+    } while (current != NULL);
+
     return NULL;
 }
