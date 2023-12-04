@@ -115,5 +115,5 @@ function main {
 
 
 
-folders=("src")
+folders=("src", "src/modules")
 main
