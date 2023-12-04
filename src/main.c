@@ -8,7 +8,7 @@
 #include "../includes/tests/test_list.h"
 #include "../includes/tests/test_search.h"
 
-
+/*
 void testDisplaying() {
     t_d_list myList = createEmptyList(4);
     insertCellAtHead(&myList, 2,4);
@@ -60,29 +60,27 @@ void testDisplaying() {
 
 
 }
-
+*/
 int main() {
-    srand(time(NULL));
+
     // testLists();
     // testSearch();
-    t_d_list myList = createCompleteAscendedList(4);
+    t_d_list myList = createCompleteAscendedList(3);
 
     int value;
 
     displayListAligned(myList);
 
-    while(!scanf("%d", &value)) {
-        printf("Please enter a valid integer\n");
-    }
+    t_d_cell *cell;
+    printf("%d", 9);
+    
+    cell = searchAscendant(myList, 5);
 
-    t_d_cell *cell = searchAscendant(myList, value);
-    if(cell != NULL) {
-        printf("Found cell with value %d at address %p\n", cell->value, cell);
-    } else {
-        printf("Cell not found\n");
-    }
+    
 
 }
+
+
 
 
 
