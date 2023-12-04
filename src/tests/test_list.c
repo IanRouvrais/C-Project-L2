@@ -77,7 +77,7 @@ static void test_insertCellInDescendedOrder() {
 
 static void test_createRandomAscendedList() {
     srand(time(NULL));
-    t_d_list list = createRandomAscendedList(10, 5);
+    t_d_list list = createRandomAscendedList(10, 5, 20);
     displayListAligned(list);
 }
 

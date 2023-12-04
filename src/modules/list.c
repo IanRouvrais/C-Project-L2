@@ -11,6 +11,8 @@ t_d_list createEmptyList(int maxLevels)
 {
     t_d_list list;
     list.nbLevels = maxLevels;
+    if (maxLevels < 1) maxLevels = 1;
+
 
     list.heads = (t_d_cell **)malloc(maxLevels * sizeof(t_d_cell *));
 
@@ -234,23 +236,24 @@ int insertCellInAscendedOrder(t_d_list *list, int value, int levels) {
     return 0;
 }
 
-t_d_list createRandomAscendedList(int nbCells, int maxLevels) {
+t_d_list createRandomAscendedList(int nbCells, int maxLevels, int maxValue) {
     t_d_list list = createEmptyList(maxLevels);
     int rValue, rLevel;
     for(register int i=0; i<nbCells;i++) {
-        rValue = rand() % 20;
+        rValue = rand() % maxValue;
         rLevel = rand() % maxLevels;
-        printf("Inserting cell with value %d at level %d\n", rValue, rLevel);
+        printf("(%d | %d) — ", rValue, rLevel);
         insertCellInAscendedOrder(&list, rValue, rLevel);
     }
+    printf("NULL\n");
     return list;
 }
 
-t_d_list createRandomDescendedList(int nbCells, int maxLevels) {
+t_d_list createRandomDescendedList(int nbCells, int maxLevels, int maxValue) {
     t_d_list list = createEmptyList(maxLevels);
     int rValue, rLevel;
     for(register int i=0; i<nbCells;i++) {
-        rValue = rand() % 20;
+        rValue = rand() % maxValue;
         rLevel = rand() % maxLevels;
         printf("Inserting cell with value %d at level %d\n", rValue, rLevel);
         insertCellInDescendedOrder(&list, rValue, rLevel);
@@ -354,6 +357,25 @@ int sortList(t_d_list *list, int order) {
 
     return 0;
 }
+
+// This function will create a list with as values the numbers from 0 2^n - 1 and as nbLevels the value of n.
+t_d_list createCompleteAscendedList(int nbLevels) {
+    t_d_list list = createEmptyList(nbLevels);
+    int nbCells = (int)pow(2, nbLevels) - 1;
+    int cellLevel;
+    for(register int i = nbCells; i>=0; i--) {
+        cellLevel = 0;
+        for(register int j = 1; j<nbLevels; j++) {
+            if(i % (int)pow(2, j) == 0) {
+                cellLevel++;
+            }
+        }
+        insertCellAtHead(&list, i, cellLevel);
+    }
+    return list;
+}
+
+
 
 int deleteList(t_d_list *list) {
     if (list == NULL) {

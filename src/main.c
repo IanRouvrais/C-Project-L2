@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include<stdlib.h>
 #include <time.h>
+
 #include "../includes/list.h"
+#include "../includes/search.h"
+
 #include "../includes/tests/test_list.h"
 #include "../includes/tests/test_search.h"
 
@@ -51,7 +54,7 @@ void testDisplaying() {
     printf("\n");
     displayListAligned(orderedList2);
 
-    t_d_list randomList = createRandomAscendedList(5, 5);
+    t_d_list randomList = createRandomAscendedList(5, 5, 20);
     displayListAligned(randomList);
     deleteList(&randomList);
 
@@ -60,16 +63,26 @@ void testDisplaying() {
 
 int main() {
     srand(time(NULL));
-    testLists();
-    testSearch();
+    // testLists();
+    // testSearch();
+    t_d_list myList = createCompleteAscendedList(4);
+
+    int value;
+
+    displayListAligned(myList);
+
+    while(!scanf("%d", &value)) {
+        printf("Please enter a valid integer\n");
+    }
+
+    t_d_cell *cell = searchAscendant(myList, value);
+    if(cell != NULL) {
+        printf("Found cell with value %d at address %p\n", cell->value, cell);
+    } else {
+        printf("Cell not found\n");
+    }
 
 }
 
-/*
-/usr/bin/ld: out/parts/main.c.o: in function `main':
-main.c:(.text.startup+0xa): undefined reference to `createEmptyList'
-/usr/bin/ld: main.c:(.text.startup+0x22): undefined reference to `insertCellAtHead'
-/usr/bin/ld: main.c:(.text.startup+0x30): undefined reference to `displayList'
-collect2: error: ld returned 1 exit status
-*/
+
 

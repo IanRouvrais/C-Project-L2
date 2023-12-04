@@ -18,9 +18,11 @@ int displayListAligned(t_d_list list);
 int displayListLevel(t_d_list list, int level);
 int insertCellInAscendedOrder(t_d_list*, int, int);
 int insertCellInDescendedOrder(t_d_list*, int, int);
-t_d_list createRandomAscendedList(int, int);
-t_d_list createRandomDescendedList(int, int);
+t_d_list createRandomAscendedList(int nbCells, int maxLevel, int maxValue);
+t_d_list createRandomDescendedList(int, int, int);
 t_d_list createRandomList(int, int);
+t_d_list createCompleteAscendedList(int levels);
+t_d_list createCompleteDescendedList(int levels);
 int sortList(t_d_list*, int);
 
 #endif
