@@ -2,7 +2,10 @@
 #include<stdlib.h>
 #include <time.h>
 #include "../includes/list.h"
-#include "../includes/test_list.h"
+#include "../includes/tests/test_list.h"
+#include "../includes/tests/test_search.h"
+
+
 void testDisplaying() {
     t_d_list myList = createEmptyList(4);
     insertCellAtHead(&myList, 2,4);
@@ -58,7 +61,7 @@ void testDisplaying() {
 int main() {
     srand(time(NULL));
     testLists();
-
+    testSearch();
 
 }
 

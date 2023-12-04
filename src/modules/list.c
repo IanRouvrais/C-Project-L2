@@ -36,7 +36,6 @@ int insertCellAtHead(t_d_list *list, int value, int levels) {
     return 0;
 }
 
-
 int insertCellAtTail(t_d_list *list, int value, int levels)
 {
     if (list == NULL)
@@ -73,58 +72,6 @@ int insertCellAtTail(t_d_list *list, int value, int levels)
     }
     return 0;
 }
-
-
-int insertCellAtIndex(t_d_list *list, int value, int levels, int index)
-{
-    if (list == NULL)
-    {
-        fprintf(stderr, "Error: Can't add to an empty list");
-        return 1;
-    }
-    if (levels < 0) levels = 0;
-    if (levels >= list->nbLevels) levels = list->nbLevels - 1;
-
-    if (index < 0) index = 0;
-    if (index > list->nbLevels) index = list->nbLevels;
-
-    t_d_cell *newCell = createCell(value, levels);
-
-    if (index == 0)
-    {
-        for (register int i = 0; i <= levels; ++i)
-        {
-            newCell->next[i] = list->heads[i];
-            list->heads[i] = newCell;
-        }
-    }
-    else
-    {
-        t_d_cell *current = list->heads[0];
-        int count = 0;
-
-        while (current != NULL && count < index - 1)
-        {
-            current = current->next[0];
-            count++;
-        }
-
-        if (current == NULL)
-        {
-            fprintf(stderr, "Error: Index out of range");
-            return 1;
-        }
-
-        for (register int i = 0; i <= levels; ++i)
-        {
-            newCell->next[i] = current->next[i];
-            current->next[i] = newCell;
-        }
-    }
-
-    return 0;
-}
-
 
 int displayListLevel(t_d_list list, int level)
 {
@@ -208,7 +155,7 @@ int displayListAligned(t_d_list list)
     return 0;
 }
 
-int insertCellatIndex(t_d_list *list, int value, int levels, int index)
+int insertCellAtIndex(t_d_list *list, int value, int levels, int index)
 {
     if (list == NULL)
     {
@@ -230,7 +177,7 @@ int insertCellatIndex(t_d_list *list, int value, int levels, int index)
             list->heads[i] = newCell;
         }
         return 0;
-    }
+    } 
 
     while (current->next[0] != NULL)
     {
@@ -258,7 +205,7 @@ int insertCellInAscendedOrder(t_d_list *list, int value, int levels) {
     t_d_cell *current = list->heads[0];
     t_d_cell *prev = NULL;
 
-    if (current == NULL || current->value > value) {
+    if (current == NULL || current->value >= value) {
         for (register int i = levels; i >= 0; i--) {
             newCell->next[i] = list->heads[i];
             list->heads[i] = newCell;
@@ -266,14 +213,22 @@ int insertCellInAscendedOrder(t_d_list *list, int value, int levels) {
         return 0;
     }
 
-    while (current != NULL && current->value <= value) {
-        prev = current;
-        current = current->next[0];
-    }
-
     for (register int i = levels; i >= 0; i--) {
-        newCell->next[i] = prev->next[i];
-        prev->next[i] = newCell;
+        current = list->heads[i];
+        prev = NULL;
+
+        while (current != NULL && current->value < value) {
+            prev = current;
+            current = current->next[i];
+        }
+
+        if (prev == NULL) {
+            newCell->next[i] = list->heads[i];
+            list->heads[i] = newCell;
+        } else {
+            newCell->next[i] = prev->next[i];
+            prev->next[i] = newCell;
+        }
     }
 
     return 0;
@@ -291,6 +246,30 @@ t_d_list createRandomAscendedList(int nbCells, int maxLevels) {
     return list;
 }
 
+t_d_list createRandomDescendedList(int nbCells, int maxLevels) {
+    t_d_list list = createEmptyList(maxLevels);
+    int rValue, rLevel;
+    for(register int i=0; i<nbCells;i++) {
+        rValue = rand() % 20;
+        rLevel = rand() % maxLevels;
+        printf("Inserting cell with value %d at level %d\n", rValue, rLevel);
+        insertCellInDescendedOrder(&list, rValue, rLevel);
+    }
+    return list;
+}
+
+t_d_list createRandomList(int nbCells, int maxLevels) {
+    t_d_list list = createEmptyList(maxLevels);
+    int rValue, rLevel;
+    for(register int i=0; i<nbCells;i++) {
+        rValue = rand() % 20;
+        rLevel = rand() % maxLevels;
+        printf("Inserting cell with value %d at level %d\n", rValue, rLevel);
+        insertCellAtTail(&list, rValue, rLevel);
+    }
+    return list;
+}
+
 int insertCellInDescendedOrder(t_d_list *list, int value, int levels) {
     if (list == NULL) {
         fprintf(stderr, "Error: Can't add to an empty list");
@@ -304,7 +283,7 @@ int insertCellInDescendedOrder(t_d_list *list, int value, int levels) {
     t_d_cell *current = list->heads[0];
     t_d_cell *prev = NULL;
 
-    if (current == NULL || current->value < value) {
+    if (current == NULL || current->value <= value) {
         for (register int i = levels; i >= 0; i--) {
             newCell->next[i] = list->heads[i];
             list->heads[i] = newCell;
@@ -312,14 +291,22 @@ int insertCellInDescendedOrder(t_d_list *list, int value, int levels) {
         return 0;
     }
 
-    while (current != NULL && current->value >= value) {
-        prev = current;
-        current = current->next[0];
-    }
-
     for (register int i = levels; i >= 0; i--) {
-        newCell->next[i] = prev->next[i];
-        prev->next[i] = newCell;
+        current = list->heads[i];
+        prev = NULL;
+
+        while (current != NULL && current->value > value) {
+            prev = current;
+            current = current->next[i];
+        }
+
+        if (prev == NULL) {
+            newCell->next[i] = list->heads[i];
+            list->heads[i] = newCell;
+        } else {
+            newCell->next[i] = prev->next[i];
+            prev->next[i] = newCell;
+        }
     }
 
     return 0;

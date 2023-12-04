@@ -64,10 +64,7 @@ function compile {
             log "Compiling $(print "$file" blue)"
             gcc -c "$file" \
                 -o "out/parts/$(basename "$file").o" \
-                -Wall \
-                -pedantic \
-                -std=c99 \
-                -O3
+                -Werror
         done
     done
     print $(separate) blue
@@ -78,10 +75,7 @@ function link {
     gcc out/parts/*.o \
         -lm \
         -o out/main.exe \
-        -Wall \
-        -pedantic \
-        -std=c99 \
-        -O3
+        -Werror 
     separate
 }
 
@@ -115,5 +109,5 @@ function main {
 
 
 
-folders=("src", "src/modules")
+folders=("src" "src/modules" "src/tests")
 main

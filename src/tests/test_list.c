@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "../../includes/test_list.h"
+#include "../../includes/list.h"
+#include "../../includes/tests/test_list.h"
 // Test functions
 static void test_createList() {
     t_d_list list = createEmptyList(5);

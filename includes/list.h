@@ -12,8 +12,6 @@ t_d_list createEmptyList(int maxLevels);
 int insertCellAtHead(t_d_list *list, int value, int levels);
 int insertCellAtTail(t_d_list *list, int value, int levels);
 int insertCellAtIndex(t_d_list *list, int value, int levels, int index);
-int removeCell(t_d_list *list, int value);
-int removeCellAtIndex(t_d_list *list, int index);
 int deleteList(t_d_list *list);
 int displayList(t_d_list list);
 int displayListAligned(t_d_list list);
