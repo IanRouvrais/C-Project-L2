@@ -4,7 +4,8 @@
 
 #include "../includes/list.h"
 #include "../includes/search.h"
-
+#include "../includes/cell.h"
+#include "../includes/timer.h"
 #include "../includes/tests/test_list.h"
 #include "../includes/tests/test_search.h"
 
@@ -68,19 +69,23 @@ int main() {
     t_d_list myList = createCompleteAscendedList(3);
 
     int value;
-
+    
+    startTimer();
     displayListAligned(myList);
-
+    
     t_d_cell *cell;
-    printf("%d", 9);
     
-    cell = searchAscendant(myList, 5);
-
+    cell = searchLevel0Ascendant(myList, 5);
+    if(cell != NULL) {
+        printf("Found : %d\n", cell->value);
+    } else {
+        printf("Not found\n");
+    }
+    displayTime();
+    stopTimer();
     
-
+    
 }
-
-
 
 
 

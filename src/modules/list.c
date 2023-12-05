@@ -364,7 +364,7 @@ t_d_list createCompleteAscendedList(int nbLevels) {
     t_d_list list = createEmptyList(nbLevels);
     int nbCells = (int)pow(2, nbLevels) - 1;
     int cellLevel;
-    for( int i = nbCells; i>=0; i--) {
+    for( int i = nbCells; i>0; i--) {
         cellLevel = 0;
         for( int j = 1; j<nbLevels; j++) {
             if(i % (int)pow(2, j) == 0) {

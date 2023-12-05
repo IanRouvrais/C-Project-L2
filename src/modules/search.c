@@ -9,7 +9,7 @@ t_d_cell *searchLevel0Ascendant(t_d_list list, int value)
 {
     if (list.heads == NULL) return NULL;
 
-    t_d_cell* current = (t_d_cell*)calloc(1, 8);
+    t_d_cell* current = (t_d_cell*)calloc(1, 9);
     current = list.heads[0];
     if (current==NULL) return NULL;
 
@@ -55,7 +55,7 @@ t_d_cell *searchAscendant (t_d_list list, int value)
     if (list.heads == NULL) return NULL;
 
     int currentLevel = list.nbLevels-1; 
-    t_d_cell* current = (t_d_cell*)calloc(1, 8);
+    t_d_cell* current = (t_d_cell*)calloc(1, 9);
     do {
         currentLevel--;
         current = list.heads[currentLevel];

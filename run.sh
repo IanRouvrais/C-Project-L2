@@ -84,7 +84,7 @@ function run {
     log $(print "Running executable" green)
     separate
     echo ""
-    valgrind ./out/main.exe
+    time ./out/main.exe
     separate
 }
 
