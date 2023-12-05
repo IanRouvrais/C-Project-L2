@@ -39,43 +39,6 @@ int insertCellAtHead(t_d_list *list, int value, int levels) {
     return 0;
 }
 
-int insertCellAtTail(t_d_list *list, int value, int levels)
-{
-    if (list == NULL)
-    {
-        fprintf(stderr, "Error: Can't add to an empty list");
-        return 1;
-    }
-    if (levels < 0) levels = 0;
-    if (levels >= list->nbLevels) levels = list->nbLevels-1;
-
-    t_d_cell *newCell = createCell(value, levels);
-
-    t_d_cell *current = list->heads[0];
-
-    if (current == NULL)
-    {
-        for ( int i = 0; i < levels; i++)
-        {
-            newCell->next[i] = list->heads[i];
-            list->heads[i] = newCell;
-        }
-        return 0;
-    }
-
-    while (current->next[0] != NULL)
-    {
-        current = current->next[0];
-    }
-
-    for ( int i = 0; i <= levels; i++)
-    {
-        newCell->next[i] = current->next[i];
-        current->next[i] = newCell;
-    }
-    return 0;
-}
-
 int displayListLevel(t_d_list list, int level)
 {
     if (level < 0) level = 0;
@@ -158,43 +121,6 @@ int displayListAligned(t_d_list list)
     return 0;
 }
 
-int insertCellAtIndex(t_d_list *list, int value, int levels, int index)
-{
-    if (list == NULL)
-    {
-        fprintf(stderr, "Error: Can't add to an empty list");
-        return 1;
-    }
-    if (levels < 0) levels = 0;
-    if (levels >= list->nbLevels) levels = list->nbLevels - 1;
-
-    t_d_cell *newCell = createCell(value, levels);
-
-    t_d_cell *current = list->heads[0];
-
-    if (current == NULL)
-    {
-        for ( int i = 0; i < levels; i++)
-        {
-            newCell->next[i] = list->heads[i];
-            list->heads[i] = newCell;
-        }
-        return 0;
-    } 
-
-    while (current->next[0] != NULL)
-    {
-        current = current->next[0];
-    }
-
-    for ( int i = 0; i < levels; i++)
-    {
-        newCell->next[i] = current->next[i];
-        current->next[i] = newCell;
-    }
-    return 0;
-}
-
 int insertCellInAscendedOrder(t_d_list *list, int value, int levels) {
     if (list == NULL) {
         fprintf(stderr, "Error: Can't add to an empty list");
@@ -235,43 +161,6 @@ int insertCellInAscendedOrder(t_d_list *list, int value, int levels) {
     }
 
     return 0;
-}
-
-t_d_list createRandomAscendedList(int nbCells, int maxLevels, int maxValue) {
-    t_d_list list = createEmptyList(maxLevels);
-    int rValue, rLevel;
-    for( int i=0; i<nbCells;i++) {
-        rValue = rand() % maxValue;
-        rLevel = rand() % maxLevels;
-        printf("(%d | %d) — ", rValue, rLevel);
-        insertCellInAscendedOrder(&list, rValue, rLevel);
-    }
-    printf("NULL\n");
-    return list;
-}
-
-t_d_list createRandomDescendedList(int nbCells, int maxLevels, int maxValue) {
-    t_d_list list = createEmptyList(maxLevels);
-    int rValue, rLevel;
-    for( int i=0; i<nbCells;i++) {
-        rValue = rand() % maxValue;
-        rLevel = rand() % maxLevels;
-        printf("Inserting cell with value %d at level %d\n", rValue, rLevel);
-        insertCellInDescendedOrder(&list, rValue, rLevel);
-    }
-    return list;
-}
-
-t_d_list createRandomList(int nbCells, int maxLevels) {
-    t_d_list list = createEmptyList(maxLevels);
-    int rValue, rLevel;
-    for( int i=0; i<nbCells;i++) {
-        rValue = rand() % 20;
-        rLevel = rand() % maxLevels;
-        printf("Inserting cell with value %d at level %d\n", rValue, rLevel);
-        insertCellAtTail(&list, rValue, rLevel);
-    }
-    return list;
 }
 
 int insertCellInDescendedOrder(t_d_list *list, int value, int levels) {
@@ -316,50 +205,6 @@ int insertCellInDescendedOrder(t_d_list *list, int value, int levels) {
     return 0;
 }
 
-static int compareAsc(const void *a, const void *b) {
-    return (*(int *)a - *(int *)b);
-}
-
-static int compareDesc(const void *a, const void *b) {
-    return (*(int *)b - *(int *)a);
-}
-
-int sortList(t_d_list *list, int order) {
-    if (list == NULL) {
-        fprintf(stderr, "Error: Can't sort an empty list");
-        return 1;
-    }
-
-    int nbCells = 0;
-    t_d_cell *current = list->heads[0];
-    while (current != NULL) {
-        nbCells++;
-        current = current->next[0];
-    }
-
-    int values[nbCells];
-    current = list->heads[0];
-    for ( int i = 0; i < nbCells; i++) {
-        values[i] = current->value;
-        current = current->next[0];
-    }
-
-    if (order == 1) {
-        qsort(values, nbCells, sizeof(int), compareAsc);
-    } else {
-        qsort(values, nbCells, sizeof(int), compareDesc);
-    }
-
-    current = list->heads[0];
-    for ( int i = 0; i < nbCells; i++) {
-        current->value = values[i];
-        current = current->next[0];
-    }
-
-    return 0;
-}
-
-// This function will create a list with as values the numbers from 0 2^n - 1 and as nbLevels the value of n.
 t_d_list createCompleteAscendedList(int nbLevels) {
     t_d_list list = createEmptyList(nbLevels);
     int nbCells = (int)pow(2, nbLevels) - 1;
