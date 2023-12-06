@@ -7,7 +7,7 @@
 int main() {
     srand(time(NULL));
     t_d_cell *cell = createCell(0, 5);
-    display_cell(cell);*
+    display_cell(cell);
     freeCell(cell);
 }
 
