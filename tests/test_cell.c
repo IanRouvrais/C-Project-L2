@@ -1,11 +1,13 @@
-#include "include/test.h"
+#include "include/test_cell.h"
 #include "include/cell.h"
 
 static void test_createCell() {
-    t_d_cell *cell = createCell(0, 5);
+    int randValue = rand() % 100;
+    int randLevel = rand() % 10;
+    t_d_cell *cell = createCell(randValue, randLevel);
     assert(cell != NULL);
-    assert(cell->value == 0);
-    assert(cell->level == 5);
+    assert(cell->value == randValue);
+    assert(cell->level == randLevel);
     assert(cell->next != NULL);
     for (int i = 0; i <= cell->level; ++i) {
         assert(cell->next[i] == NULL);
@@ -14,20 +16,26 @@ static void test_createCell() {
 }
 
 static void test_freeCell() {
-    t_d_cell *cell = createCell(0, 5);
+    int randValue = rand() % 100;
+    int randLevel = rand() % 10;
+    t_d_cell *cell = createCell(randValue, randLevel);
     freeCell(cell);
     assert(cell->next == NULL);
     assert(cell == NULL);
 }
 
-static void test_display_cell() {
-    t_d_cell *cell = createCell(0, 5);
-    display_cell(cell);
+static void test_displayCell() {
+    int randValue = rand() % 100;
+    int randLevel = rand() % 10;
+    t_d_cell *cell = createCell(randValue, randLevel);
+    displayCell(cell);
     freeCell(cell);
 }
 
 void test_cell() {
+    printf("Testing cell...\n");
     test_createCell();
     test_freeCell();
-    test_display_cell();
+    test_displayCell();
+    printf("All tests passed!\n");
 }
