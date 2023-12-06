@@ -26,7 +26,7 @@ inline void freeCell(t_d_cell *cell) {
     }
 }
 
-void display_cell(t_d_cell *cell) {
+void displayCell(t_d_cell *cell) {
     printf("[CELL | %p]  Value: %d, Level: %d, Next: [", cell, cell->value, cell->level);
     for (int i = 0; i <= cell->level; ++i) {
         printf("%p%s", (void *)(cell->next[i]), (i < cell->level) ? ", " : "");
