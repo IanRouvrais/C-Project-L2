@@ -13,5 +13,6 @@ typedef struct s_cell
 
 t_d_cell *createCell(int value, int levels);
 void freeCell(t_d_cell *cell);
+void displayCell(t_d_cell *cell);
 
 #endif
