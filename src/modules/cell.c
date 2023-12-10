@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "include/cell.h"
+#include "../../include/cell.h"
 
 Cell *createCell(int cellValue, int cellLevel) {
     Cell *cell = (Cell *)calloc(1, SIZE_OF_CELL);
