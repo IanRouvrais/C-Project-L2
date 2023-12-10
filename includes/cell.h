@@ -1,6 +1,9 @@
 #ifndef CELL_H
 #define CELL_H
 
+#define SIZE_OF_CELL 8 // 8 bytes (2 * sizeof(int))
+#define SIZE_OF_PTR sizeof(void *)
+
 typedef struct s_cell 
 {
     int value;
