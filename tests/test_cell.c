@@ -4,7 +4,7 @@
 static void test_createCell() {
     int randValue = rand() % 100;
     int randLevel = rand() % 10;
-    t_d_cell *cell = createCell(randValue, randLevel);
+    Cell *cell = createCell(randValue, randLevel);
     assert(cell != NULL);
     assert(cell->value == randValue);
     assert(cell->level == randLevel);
@@ -18,7 +18,7 @@ static void test_createCell() {
 static void test_freeCell() {
     int randValue = rand() % 100;
     int randLevel = rand() % 10;
-    t_d_cell *cell = createCell(randValue, randLevel);
+    Cell *cell = createCell(randValue, randLevel);
     freeCell(cell);
     assert(cell->next == NULL);
     assert(cell == NULL);
@@ -27,7 +27,7 @@ static void test_freeCell() {
 static void test_displayCell() {
     int randValue = rand() % 100;
     int randLevel = rand() % 10;
-    t_d_cell *cell = createCell(randValue, randLevel);
+    Cell *cell = createCell(randValue, randLevel);
     displayCell(cell);
     freeCell(cell);
 }
